@@ -14,14 +14,14 @@ public class Account {
 
     private Double balance;
 
-    private Collection<Transaction> transactions;
+    private ArrayList<Transaction> transactions;
 
     public Account(){
     }
 
     public Account(Double balance) {
         this.balance = balance;
-        this.transactions = new ArrayList<>();
+        this.transactions = new ArrayList<Transaction>();
     }
 
     public Long getCbu() {
