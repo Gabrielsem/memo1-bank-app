@@ -1,6 +1,8 @@
 package com.aninfo.model;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -19,6 +21,7 @@ public class Account {
 
     public Account(Double balance) {
         this.balance = balance;
+        this.transactions = new ArrayList<>();
     }
 
     public Long getCbu() {
@@ -33,8 +36,17 @@ public class Account {
         return balance;
     }
 
+    public Collection<Transaction> getTransactions() {
+        return transactions;
+    }
+
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
+        this.setBalance(this.getBalance() + transaction.getAmount());
     }
 
 }

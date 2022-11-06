@@ -3,11 +3,14 @@ package com.aninfo.service;
 import com.aninfo.exceptions.DepositNegativeSumException;
 import com.aninfo.exceptions.InsufficientFundsException;
 import com.aninfo.model.Account;
+import com.aninfo.model.Transaction;
 import com.aninfo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -44,8 +47,8 @@ public class AccountService {
         if (account.getBalance() < sum) {
             throw new InsufficientFundsException("Insufficient funds");
         }
-
-        account.setBalance(account.getBalance() - sum);
+        
+        account.addTransaction(new Transaction(-sum, LocalDateTime.now()));
         accountRepository.save(account);
 
         return account;
@@ -59,7 +62,7 @@ public class AccountService {
         }
 
         Account account = accountRepository.findAccountByCbu(cbu);
-        account.setBalance(account.getBalance() + sum);
+        account.addTransaction(new Transaction(sum, LocalDateTime.now()));
         accountRepository.save(account);
 
         return account;
