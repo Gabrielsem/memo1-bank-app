@@ -31,7 +31,15 @@ public class Transaction {
         this.isDeposit = isDeposit;
 
         if (isDeposit) {
-            account.setBalance(account.getBalance() + amount);
+            // if amount >= 2000 then 10% bonus, but not more than 500
+            if (amount >= 2000) {
+                Double extra = amount * 0.1;
+                System.out.println("Amount: " + amount);
+                System.out.println("Extra: " + extra);
+                this.account.setBalance(this.account.getBalance() + amount + (extra > 500 ? 500 : extra));
+            } else {
+                this.account.setBalance(this.account.getBalance() + amount);
+            }
         } else {
             account.setBalance(account.getBalance() - amount);
         }

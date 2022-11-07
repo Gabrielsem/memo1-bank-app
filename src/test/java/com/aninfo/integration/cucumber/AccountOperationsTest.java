@@ -29,24 +29,23 @@ public class AccountOperationsTest extends AccountIntegrationServiceTest {
         account = createAccount(Double.valueOf(balance));
     }
 
-    // @When("^Trying to withdraw (\\d+)$")
-    // public void trying_to_withdraw(int sum) {
-    //     try {
-    //         account = withdraw(account, Double.valueOf(sum));
-    //     } catch (InsufficientFundsException ife) {
-    //         this.ife = ife;
-    //     }
-    // }
+    @When("^Trying to withdraw (\\d+)$")
+    public void trying_to_withdraw(int sum) {
+        try {
+            account = withdraw(account, Double.valueOf(sum));
+        } catch (InsufficientFundsException ife) {
+            this.ife = ife;
+        }
+    }
 
-    // @When("^Trying to deposit (.*)$")
-    // public void trying_to_deposit(int sum) {
-    //     try {
-    //         account = deposit(account, Double.valueOf(sum));
-    //     } catch (DepositNegativeSumException dnse) {
-    //         this.dnse = dnse;
-    //     }
-    // }
-    // TODO: Implement the above steps
+    @When("^Trying to deposit (.*)$")
+    public void trying_to_deposit(int sum) {
+        try {
+            account = deposit(account, Double.valueOf(sum));
+        } catch (DepositNegativeSumException dnse) {
+            this.dnse = dnse;
+        }
+    }
 
     @Then("^Account balance should be (\\d+)$")
     public void account_balance_should_be(int balance) {
