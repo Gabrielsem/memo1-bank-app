@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
 
     Transaction findTransactionById(Long id);
-
+    
     @Override
     List<Transaction> findAll();
 

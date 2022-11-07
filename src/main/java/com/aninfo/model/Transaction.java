@@ -1,6 +1,5 @@
 package com.aninfo.model;
 
-import com.aninfo.model.Account;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -9,9 +8,11 @@ import javax.persistence.*;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "account")
     private Account account;
     
     private Boolean isDeposit;

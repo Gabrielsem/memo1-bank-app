@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -27,16 +29,22 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Optional<Transaction> findById(Long cbu) {
-        return transactionRepository.findById(cbu);
+    public Collection<Transaction> getTransactionsByAccount(Long cbu) {
+        return transactionRepository.findAll().stream()
+        .filter(t -> t.getAccount().getCbu().equals(cbu))
+        .collect(Collectors.toList());
+    }
+
+    public Optional<Transaction> findById(Long id) {
+        return transactionRepository.findById(id);
     }
 
     public void save(Transaction Transaction) {
         transactionRepository.save(Transaction);
     }
 
-    public void deleteById(Long cbu) {
-        transactionRepository.deleteById(cbu);
+    public void deleteById(Long id) {
+        transactionRepository.deleteById(id);
     }
 
     @Transactional

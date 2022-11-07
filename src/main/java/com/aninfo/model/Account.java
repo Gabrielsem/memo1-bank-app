@@ -6,12 +6,10 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cbu;
 
     private Double balance;
-
-    // private ArrayList<Transaction> transactions;
 
     public Account(){
     }
