@@ -1,7 +1,10 @@
 package com.aninfo;
 
 import com.aninfo.model.Account;
+import com.aninfo.model.Transaction;
 import com.aninfo.service.AccountService;
+import com.aninfo.service.TransactionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +29,10 @@ public class Memo1BankApp {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private TransactionService transactionService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(Memo1BankApp.class, args);
@@ -66,13 +73,15 @@ public class Memo1BankApp {
 	}
 
 	@PutMapping("/accounts/{cbu}/withdraw")
-	public Account withdraw(@PathVariable Long cbu, @RequestParam Double sum) {
-		return accountService.withdraw(cbu, sum);
+	public Transaction withdraw(@PathVariable Long cbu, @RequestParam Double sum) {
+		Optional<Account> account = accountService.findById(cbu);
+		return transactionService.withdraw(account.orElseThrow(), sum);
 	}
 
 	@PutMapping("/accounts/{cbu}/deposit")
-	public Account deposit(@PathVariable Long cbu, @RequestParam Double sum) {
-		return accountService.deposit(cbu, sum);
+	public Transaction deposit(@PathVariable Long cbu, @RequestParam Double sum) {
+		Optional<Account> account = accountService.findById(cbu);
+		return transactionService.deposit(account.orElseThrow(), sum);
 	}
 
 	@Bean

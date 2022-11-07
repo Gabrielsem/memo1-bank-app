@@ -18,12 +18,13 @@ public class AccountIntegrationServiceTest {
         return accountService.createAccount(new Account(balance));
     }
 
-    Account withdraw(Account account, Double sum) {
-        return accountService.withdraw(account.getCbu(), sum);
-    }
+    // Account withdraw(Account account, Double sum) {
+    //     return accountService.withdraw(account.getCbu(), sum);
+    // }
 
-    Account deposit(Account account, Double sum) {
-        return accountService.deposit(account.getCbu(), sum);
-    }
+    // Account deposit(Account account, Double sum) {
+    //     return accountService.deposit(account.getCbu(), sum);
+    // }
+    // TODO: Add more methods to test
 
 }

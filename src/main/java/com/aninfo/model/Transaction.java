@@ -1,5 +1,6 @@
 package com.aninfo.model;
 
+import com.aninfo.model.Account;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -11,6 +12,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Account account;
+    
+    private Boolean isDeposit;
+    
     private Double amount;
 
     private LocalDateTime date;
@@ -18,9 +23,17 @@ public class Transaction {
     public Transaction(){
     }
 
-    public Transaction(Double amount, LocalDateTime date) {
+    public Transaction(Double amount, Account account, Boolean isDeposit) {
         this.amount = amount;
-        this.date = date;
+        this.date = LocalDateTime.now();
+        this.account = account;
+        this.isDeposit = isDeposit;
+
+        if (isDeposit) {
+            account.setBalance(account.getBalance() + amount);
+        } else {
+            account.setBalance(account.getBalance() - amount);
+        }
     }
 
     public Long getid() {
@@ -35,11 +48,11 @@ public class Transaction {
         return date;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public Boolean getIsDeposit() {
+        return isDeposit;
     }
 }
