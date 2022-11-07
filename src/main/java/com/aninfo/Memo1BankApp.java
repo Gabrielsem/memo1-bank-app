@@ -55,23 +55,6 @@ public class Memo1BankApp {
 		return ResponseEntity.of(accountOptional);
 	}
 
-	@GetMapping("/transactions/{id}")
-	public ResponseEntity<Transaction> getTransaction(@PathVariable Long id) {
-		Optional<Transaction> transactionOptional = transactionService.findById(id);
-		return ResponseEntity.of(transactionOptional);
-	}
-
-	@GetMapping("/transactions")
-	public ResponseEntity<Collection<Transaction>> getTransactions(@RequestParam(required = false) Long cbu) {
-			if (cbu == null) {
-				Collection<Transaction> transactions = transactionService.getTransactions();
-				return ResponseEntity.ok(transactions);
-			} else {
-				Collection<Transaction> transactions = transactionService.getTransactionsByAccount(cbu);
-				return ResponseEntity.ok(transactions);
-			}
-	}
-
 	@PutMapping("/accounts/{cbu}")
 	public ResponseEntity<Account> updateAccount(@RequestBody Account account, @PathVariable Long cbu) {
 		Optional<Account> accountOptional = accountService.findById(cbu);
@@ -87,6 +70,24 @@ public class Memo1BankApp {
 	@DeleteMapping("/accounts/{cbu}")
 	public void deleteAccount(@PathVariable Long cbu) {
 		accountService.deleteById(cbu);
+	}
+
+	// new endpoints activity 8.4
+	@GetMapping("/transactions/{id}")
+	public ResponseEntity<Transaction> getTransaction(@PathVariable Long id) {
+		Optional<Transaction> transactionOptional = transactionService.findById(id);
+		return ResponseEntity.of(transactionOptional);
+	}
+
+	@GetMapping("/transactions")
+	public ResponseEntity<Collection<Transaction>> getTransactions(@RequestParam(required = false) Long cbu) {
+			if (cbu == null) {
+				Collection<Transaction> transactions = transactionService.getTransactions();
+				return ResponseEntity.ok(transactions);
+			} else {
+				Collection<Transaction> transactions = transactionService.getTransactionsByAccount(cbu);
+				return ResponseEntity.ok(transactions);
+			}
 	}
 
 	@DeleteMapping("/transactions/{id}")
